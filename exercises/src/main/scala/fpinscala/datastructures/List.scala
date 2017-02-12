@@ -29,6 +29,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
     case Cons(h, t) => h + sum(t)
     case _ => 101
+  } // => 3
+
+  def main(args: Array[String]): Unit = {
+    println("Expected: 3")
+    println("Actual:   %s".format(x))
   }
 
   def append[A](a1: List[A], a2: List[A]): List[A] =
