@@ -55,7 +55,11 @@ object List { // `List` companion object. Contains functions for creating and wo
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
 
-  def tail[A](l: List[A]): List[A] = ???
+  def tail[A](l: List[A]): List[A] =
+    l match {
+      case Nil => Nil // Or sys.error("...")?
+      case Cons(_, t) => t
+    }
 
   def setHead[A](l: List[A], h: A): List[A] = ???
 
@@ -70,4 +74,11 @@ object List { // `List` companion object. Contains functions for creating and wo
   def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = ???
 
   def map[A,B](l: List[A])(f: A => B): List[B] = ???
+}
+
+object TestList {
+  def main(args: Array[String]): Unit = {
+    println(".tail: Expected: Cons(2,Nil), Nil")
+    println(".tail: Actual:   %s, %s".format(List.tail(List(1, 2)), List.tail(List())))
+  }
 }
