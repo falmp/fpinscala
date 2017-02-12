@@ -80,7 +80,12 @@ object List { // `List` companion object. Contains functions for creating and wo
       case _ => l
     }
 
-  def init[A](l: List[A]): List[A] = ???
+  def init[A](l: List[A]): List[A] =
+    l match {
+      case Nil => Nil
+      case Cons(_, Nil) => Nil
+      case Cons(h, t) => Cons(h, init(t))
+    }
 
   def length[A](l: List[A]): Int = ???
 
@@ -102,5 +107,8 @@ object TestList {
 
     println(".dropWhile: Expected: Cons(3,Nil), Nil, Nil")
     println(".dropWhile: Actual:   %s, %s, %s".format(List.dropWhile(List(1, 2, 3), (n: Int) => n <= 2), List.dropWhile(List(1), (n: Int) => true), List.dropWhile(List(), (n: Int) => true)))
+
+    println(".init: Expected: Cons(1,Nil), Nil, Nil")
+    println(".init: Actual:   %s, %s, %s".format(List.init(List(1, 2)), List.init(List(1)), List.init(List())))
   }
 }
