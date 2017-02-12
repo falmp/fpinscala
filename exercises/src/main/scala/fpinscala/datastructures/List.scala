@@ -74,7 +74,11 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(_, t) => drop(t, n - 1)
     }
 
-  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = ???
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] =
+    l match {
+      case Cons(h, t) if f(h) => dropWhile(t, f)
+      case _ => l
+    }
 
   def init[A](l: List[A]): List[A] = ???
 
@@ -95,5 +99,8 @@ object TestList {
 
     println(".drop: Expected: Cons(3,Nil), Nil, Nil")
     println(".drop: Actual:   %s, %s, %s".format(List.drop(List(1, 2, 3), 2), List.drop(List(1), 1), List.drop(List(), 1)))
+
+    println(".dropWhile: Expected: Cons(3,Nil), Nil, Nil")
+    println(".dropWhile: Actual:   %s, %s, %s".format(List.dropWhile(List(1, 2, 3), (n: Int) => n <= 2), List.dropWhile(List(1), (n: Int) => true), List.dropWhile(List(), (n: Int) => true)))
   }
 }
