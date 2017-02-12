@@ -61,7 +61,11 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(_, t) => t
     }
 
-  def setHead[A](l: List[A], h: A): List[A] = ???
+  def setHead[A](l: List[A], h: A): List[A] =
+    l match {
+      case Nil => Cons(h, Nil)
+      case Cons(_, t) => Cons(h, l)
+    }
 
   def drop[A](l: List[A], n: Int): List[A] = ???
 
@@ -80,5 +84,8 @@ object TestList {
   def main(args: Array[String]): Unit = {
     println(".tail: Expected: Cons(2,Nil), Nil")
     println(".tail: Actual:   %s, %s".format(List.tail(List(1, 2)), List.tail(List())))
+
+    println(".setHead: Expected: Cons(0,Cons(1,Nil)), Cons(0,Nil)")
+    println(".setHead: Actual:   %s, %s".format(List.setHead(List(1), 0), List.setHead(Nil, 0)))
   }
 }
