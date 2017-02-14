@@ -87,7 +87,8 @@ object List { // `List` companion object. Contains functions for creating and wo
       case Cons(h, t) => Cons(h, init(t))
     }
 
-  def length[A](l: List[A]): Int = ???
+  def length[A](l: List[A]): Int =
+    foldRight(l, 0)((_, y) => y + 1)
 
   def foldLeft[A,B](l: List[A], z: B)(f: (B, A) => B): B = ???
 
@@ -110,5 +111,8 @@ object TestList {
 
     println(".init: Expected: Cons(1,Nil), Nil, Nil")
     println(".init: Actual:   %s, %s, %s".format(List.init(List(1, 2)), List.init(List(1)), List.init(List())))
+
+    println(".length: Expected: 2, 1, 0")
+    println(".length: Actual:   %s, %s, %s".format(List.length(List(1, 2)), List.length(List(1)), List.length(List())))
   }
 }
